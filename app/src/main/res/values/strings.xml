@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">YandexRequest</string>
+    <string name="ButtonRequest">Отправить запрос</string>
+    <string name="TextView1">Напишите свой запрос:</string>
+</resources>
