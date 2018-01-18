@@ -10,13 +10,16 @@ public class NetworkService {
 
     OkHttpClient client = new OkHttpClient();
 
-    public void sendRequest(Callback callback ,String req) {
+    public void sendRequest(Callback callback , String req) {
         Request request = new Request.Builder()
                 .url(URL+req)
                 .build();
 
         client.newCall(request).enqueue(callback);
+    }
 
+    public void cancerRequest() {
+        client.dispatcher().cancelAll();
     }
 
 }
