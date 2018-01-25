@@ -14,9 +14,13 @@ import java.util.List;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultViewHolder> {
 
+    private final List<Result> initialItems;
     private final List<Result> items;
 
+    private int currentPosition;
+
     ResultAdapter() {
+        initialItems = new ArrayList<>();
         items = new ArrayList<>();
     }
 
@@ -49,9 +53,34 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
     }
 
     public void setData(List<Result> items) {
-        this.items.clear();
-        this.items.addAll(items);
+        initialItems.clear();
+        initialItems.addAll(items);
+        currentPosition = 0;
+        fillItems();
+    }
+
+    public void previousPage() {
+        currentPosition -= 6;
+        fillItems();
+    }
+
+    public void fillItems() {
+        items.clear();
+        int itemsCounter = 0;
+        for (int i=currentPosition; i < initialItems.size() && itemsCounter < 3; i++) {
+            items.add(initialItems.get(i));
+            itemsCounter++;
+        }
+        currentPosition += 3;
         notifyDataSetChanged();
+    }
+
+    public boolean hasNextPage() {
+        return initialItems.size() > currentPosition + 1;
+    }
+
+    boolean hasPreviousPage() {
+        return currentPosition > 3;
     }
 
     static class ResultViewHolder extends RecyclerView.ViewHolder {
